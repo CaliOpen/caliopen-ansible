@@ -9,6 +9,26 @@ cassandra:
 site:
     item_per_page: 40
 
+interfaces:
+    storage:
+        data:
+            IStorage: caliop.storage.data.cassandra.Storage
+            IRawMail: caliop.storage.data.cassandra.RawMail
+            IUser: caliop.storage.data.cassandra.User
+            IContact: caliop.storage.data.cassandra.Contact
+            IContactLookup: caliop.storage.data.cassandra.ContactLookup
+            ICounter: caliop.storage.data.cassandra.Counter
+            IMessage: caliop.storage.data.cassandra.Message
+            IMessageLookup: caliop.storage.data.cassandra.MessageLookup
+            ITag: caliop.storage.data.cassandra.Tag
+            IThread: caliop.storage.data.cassandra.Thread
+        index:
+            IStorageIndex: caliop.storage.index.elasticsearch.StorageIndex
+            IUserIndex: caliop.storage.index.elasticsearch.UserIndex
+            IIndexedContact: caliop.storage.index.elasticsearch.IndexedContact
+            IIndexedMessage: caliop.storage.index.elasticsearch.IndexedMessage
+            IIndexedThread: caliop.storage.index.elasticsearch.IndexedThread
+
 system:
     default_tags:
         -

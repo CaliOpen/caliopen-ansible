@@ -1,0 +1,66 @@
+###
+# app configuration
+# http://docs.pylonsproject.org/projects/pyramid/en/latest/narr/environment.html
+###
+
+[app:main]
+use = egg:{{ project_basedir }}
+
+pyramid.reload_templates = false
+pyramid.debug_authorization = false
+pyramid.debug_notfound = false
+pyramid.debug_routematch = false
+pyramid.default_locale_name = en
+pyramid.includes =
+    {{ project_basedir }}
+    {{ project_basedir }}.core.config
+    {{ project_basedir }}.views.app
+    {{ project_basedir }}.views.api
+
+###
+# Angular app settings.
+###
+
+{{ project_basedir }}.ng.path = ../../{{ project_basedir }}.ng/bin
+{{ project_basedir }}.config =
+    global:%(here)s/{{ project_basedir }}.yaml
+###
+# wsgi server configuration
+###
+
+[server:main]
+use = egg:waitress#main
+host = 0.0.0.0
+port = 6543
+
+###
+# logging configuration
+# http://docs.pylonsproject.org/projects/pyramid/en/latest/narr/logging.html
+###
+
+[loggers]
+keys = root, {{ project_basedir }}
+
+[handlers]
+keys = console
+
+[formatters]
+keys = generic
+
+[logger_root]
+level = WARN
+handlers = console
+
+[logger_{{ project_basedir }}]
+level = WARN
+handlers =
+qualname = {{ project_basedir }}
+
+[handler_console]
+class = StreamHandler
+args = (sys.stderr,)
+level = NOTSET
+formatter = generic
+
+[formatter_generic]
+format = %(asctime)s %(levelname)-5.5s [%(name)s][%(threadName)s] %(message)s

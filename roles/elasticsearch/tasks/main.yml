@@ -1,0 +1,12 @@
+---
+# Install Elasticsearch
+- include: elasticsearch_deb.yml tags=elasticsearch
+  when: ansible_distribution in [ 'Debian', 'Ubuntu' ]
+
+- name: configure elasticsearch
+  template: src=elasticsearch.yml.j2 dest=/etc/elasticsearch/elasticsearch.yml
+  notify:
+    - restart elasticsearch
+# Install Paramedic dashboard
+# - include: paramedic.yml tags=elasticsearch
+#  when: ansible_distribution in [ 'Debian', 'Ubuntu' ]

@@ -1,0 +1,39 @@
+- name: install openjdk7
+  apt: pkg=openjdk-7-jdk state=present
+
+- name: add package needed for apt repository management
+  apt: pkg=python-pycurl state=present
+
+- name: add cassandra debian package repository
+  apt_repository: repo='deb http://debian.datastax.com/community stable main' state=present
+  tags:
+    - datastax
+
+- name: add cassandra pgp key
+  apt_key: url=http://debian.datastax.com/debian/repo_key state=present
+  tags:
+    - datastax
+
+- name: install cassandra
+  apt: pkg=cassandra state=present update_cache=yes
+
+- name: configure cassandra
+  template: src=cassandra.yaml.j2 dest=/etc/cassandra/cassandra.yaml
+  notify:
+    - restart cassandra
+  tags:
+    - cassandra
+
+- name: configure cassandra topology
+  template: src=cassandra-topology.properties.j2 dest=/etc/cassandra/cassandra-topology.properties
+  notify:
+    - restart cassandra
+  tags:
+    - cassandra
+
+- name: configure cassandra environment
+  template: src=cassandra-env.sh.j2 dest=/etc/cassandra/cassandra-env.sh
+  notify:
+    - restart cassandra
+  tags:
+    - cassandra

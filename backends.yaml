@@ -1,0 +1,7 @@
+- hosts: backends
+  user: root
+  roles:
+    - common
+    - private_network
+    - cassandra
+    - elasticsearch

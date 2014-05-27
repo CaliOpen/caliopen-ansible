@@ -1,0 +1,70 @@
+---
+
+- name: Pull sources from the repository.
+  git: repo={{project_repo}} dest={{ project_root }}/code/ version={{ git_branch }}
+  sudo: true
+  sudo_user: "{{ project_name }}"
+  #notify:
+  #  - restart web frontend
+
+- name: Upgrade the virtualenv.
+  pip: name={{ project_root }}/code/caliop virtualenv={{ project_root }}/env/
+  sudo: true
+  sudo_user: "{{ project_name }}"
+
+# XXX : temporary until python packaging is OK
+- name: remove previous caliop package
+  pip: name={{ project_name }} state=absent virtualenv={{ project_root }}/env/
+  sudo: true
+  sudo_user: "{{ project_name }}"
+
+- name: python setup.py develop caliop
+  raw: cd {{ project_root }} && source env/bin/activate && cd code/{{ project_basedir }} && python setup.py develop
+  sudo: true
+  sudo_user: "{{ project_name }}"
+
+- name: configure caliop
+  template: src={{ project_basedir }}.yaml.j2 dest={{ project_root }}/code/{{ project_basedir}}/{{ project_basedir}}.yaml
+  sudo: true
+  sudo_user: "{{ project_name }}"
+
+- name: npm install for angularjs app
+  command: npm install chdir={{ project_root }}/code/caliop.ng
+  sudo: true
+  sudo_user: "{{ project_name }}"
+
+- name: bower install for angularjs app
+  command: bower install chdir={{ project_root }}/code/caliop.ng
+  sudo: true
+  sudo_user: "{{ project_name }}"
+
+#- name: grunt build for angularjs app
+#  command: grunt build chdir={{ project_root }}/code/caliop.ng
+#  sudo: true
+#  sudo_user: "{{ project_name }}"
+
+- name: grunt compile for angularjs app
+  command: grunt compile chdir={{ project_root }}/code/{{ project_basedir }}.ng
+  sudo: true
+  sudo_user: "{{ project_name }}"
+
+- name: deploy pserve configuration script
+  template: src=production.ini.j2 dest={{ project_root }}/code/{{ project_basedir }}/production.ini
+  sudo: true
+  sudo_user: "{{ project_name }}"
+
+- name: deploy pserve helper script
+  template: src=pserve.sh.j2 dest={{ project_root }}/pserve.sh mode=0755
+  sudo: true
+  sudo_user: "{{ project_name }}"
+
+- name: stop previous pserve dameon
+  command: pkill pserve
+  ignore_errors: yes
+  sudo: true
+  sudo_user: "{{ project_name }}"
+
+- name: start pserve
+  command: ./pserve.sh chdir={{ project_root }}
+  sudo: true
+  sudo_user: "{{ project_name }}"

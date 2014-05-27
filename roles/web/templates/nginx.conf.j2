@@ -1,0 +1,29 @@
+server {
+    listen              [::]:443 ssl;
+    server_name         _;
+
+    ssl_certificate     /etc/nginx/certs/{{ project_name }}.crt;
+    ssl_certificate_key /etc/nginx/certs/{{ project_name }}.key;
+
+    # serve directly - analogous for static/staticfiles
+    location /media/ {
+        # if asset versioning is used
+        if ($query_string) {
+            expires max;
+        }
+    }
+    location / {
+        auth_basic            "Restricted";
+        auth_basic_user_file  {{ project_root}}/home/htpasswd;
+        proxy_pass_header Server;
+        proxy_set_header Host $http_host;
+        proxy_redirect off;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Scheme $scheme;
+        proxy_connect_timeout 10;
+        proxy_read_timeout 10;
+        proxy_pass http://localhost:6543/;
+    }
+    # what to serve if upstream is not available or crashes
+    # error_page 500 502 503 504 /media/50x.html;
+}

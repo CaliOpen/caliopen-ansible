@@ -1,0 +1,22 @@
+- name: update apt cache
+  command: apt-get update
+
+- name: ensure python-apt is installed
+  action: raw apt-get -y install python-apt
+  tags: ansible
+
+- name: ensure ruby-json installed as it is required for facter
+  apt: pkg=ruby-json state=installed
+  tags: ansible
+
+- name: ensure facter is installed
+  apt: pkg=facter state=installed
+  tags: ansible
+
+- name: ensure iptables is installed
+  apt: pkg=iptables state=installed
+  tags: fw
+
+- name: ensure iptables-persistent is installed
+  apt: pkg=iptables-persistent state=installed
+  tags: fw

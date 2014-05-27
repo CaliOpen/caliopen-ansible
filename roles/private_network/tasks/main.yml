@@ -1,0 +1,5 @@
+- name: private network interface configuration
+  template: src=interfaces.j2 dest=/etc/network/interfaces
+  notify:
+      - restart network
+  tags: network

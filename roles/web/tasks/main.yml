@@ -1,0 +1,61 @@
+---
+
+- name: Create the project directory.
+  file: state=directory path={{project_root}}
+
+- name: Create user.
+  user: home="{{project_root}}/home/" name="{{project_name}}" state=present shell=/bin/bash
+
+- name: Update the project directory.
+  file: group="{{project_name}}" owner="{{project_name}}" mode=755 state=directory path="{{project_root}}"
+
+- name: Create the code directory.
+  file: group="{{project_name}}" owner="{{project_name}}" mode=755 state=directory path="{{project_root}}/code/"
+
+- name: Install required system packages.
+  apt: pkg="{{item}}" state=installed update-cache=yes
+  with_items: "{{system_packages}}"
+
+- name: add wheezy backport to apt source (for nodejs)
+  apt_repository: repo="deb http://ftp.us.debian.org/debian wheezy-backports main" state=present
+
+- name: Install required Python packages.
+  easy_install: name="{{item}}"
+  with_items: "{{python_packages}}"
+
+- name: install nodejs
+  apt: pkg="{{item}}" state=installed update-cache=yes
+  with_items: "{{nodejs_packages}}"
+
+# DO NOT WORK, maybe a stdin/out problem on curl
+#- name: install npm
+#  command: curl https://www.npmjs.org/install.sh | sh
+
+- name: install nodejs modules with npm
+  npm: name={{item}} state=present global=yes
+  with_items: "{{nodejs_modules}}"
+
+- name: Create the SSH directory.
+  file: state=directory path={{project_root}}/home/.ssh/ owner={{project_name}}
+
+- name: Upload SSH authorized_keys.
+  copy: src=authorized_keys dest={{project_root}}/home/.ssh/authorized_keys mode=0600 owner={{project_name}}
+
+- name: create nginx certificate directory
+  file: path=/etc/nginx/certs state=directory mode=0700
+
+- name: install x509 key
+  copy: src=certs/{{ project_name}}.key dest=/etc/nginx/certs/{{ project_name }}.key mode=0600
+
+- name: install x509 certificate
+  copy: src=certs/{{ project_name}}.crt dest=/etc/nginx/certs/{{ project_name }}.crt mode=0600
+
+- name: install htpassword file
+  copy: src=htpasswd dest={{ project_root }}/home/htpasswd mode=0644
+  tags: htpasswd
+
+- name: Install nginx configuration file.
+  template: src=nginx.conf.j2 dest=/etc/nginx/sites-enabled/{{project_name}}
+  # notify: restart nginx
+
+- include: deploy.yml

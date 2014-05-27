@@ -1,0 +1,28 @@
+project_name: caliopen
+project_root: /var/projects/caliopen
+project_basedir: caliop
+project_repo: https://github.com/gdchamal/Caliop-PoC.git
+git_branch: core_store
+system_packages:
+  - sudo
+  - build-essential
+  - git
+  - nginx
+  - python-dev
+  - python-setuptools
+  - python-pycurl
+  - curl
+  - libffi-dev
+  - redis-server
+python_packages:
+  - pip
+  - virtualenv
+nodejs_packages:
+  - nodejs
+  - nodejs-legacy
+nodejs_modules:
+  - bower
+  - grunt
+  - grunt-cli
+initfiles:
+  - gunicorn

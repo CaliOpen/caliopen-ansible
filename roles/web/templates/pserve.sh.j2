@@ -1,0 +1,9 @@
+#!/bin/bash
+
+BASEDIR="{{ project_root }}"
+
+source $BASEDIR/env/bin/activate
+
+cd $BASEDIR/code/caliop
+
+pserve --daemon --log-file {{ project_basedir }}/pserve.log production.ini &

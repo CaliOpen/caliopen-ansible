@@ -1,0 +1,4 @@
+---
+# Install Paramedic dashboard
+- name: "Install Paramedic dashboard"
+  action: command {{ elasticsearch.plugin }} -install {{ paramedic.name }} creates={{ paramedic.index }}

@@ -1,0 +1,7 @@
+- hosts: webservers
+  # gather_facts: false
+  user: root
+  roles:
+    - common
+    - private_network
+    - web

@@ -1,0 +1,27 @@
+- name: install rabbitmq
+  apt: pkg=rabbitmq-server state=present
+  tags:
+    - amqp
+
+- name: create rabbitmq virtual host
+  rabbitmq_vhost: name={{ rabbitmq_vhost }} state=present
+  tags:
+    - amqp
+
+- name: create rabbitmq user
+  rabbitmq_user: user={{ rabbitmq_user }}
+                 password={{ rabbitmq_password }}
+                 vhost={{ rabbitmq_vhost}}
+                 configure_priv=.*
+                 read_priv=.*
+                 write_priv=.*
+                 state=present
+  tags:
+    - amqp
+
+- name: configure rabbitmq
+  template: src=rabbitmq.conf.j2 dest=/etc/rabbitmq/rabbitmq.conf
+  notify:
+    - restart rabbitmq
+  tags:
+    - amqp

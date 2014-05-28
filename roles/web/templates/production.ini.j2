@@ -23,7 +23,8 @@ kvs.session = {"kvs": "redis",
                "key_name": "session_id",
                "session_type": "cookie",
                 "ttl": 300,
-                "key_prefix": "session::"}
+                "key_prefix": "session::",
+                "kvs_kwargs": {"host": "{{ hostvars[groups['backends'][0]]['private_ip_address'] }}"}}
 
 ###
 # Angular app settings.

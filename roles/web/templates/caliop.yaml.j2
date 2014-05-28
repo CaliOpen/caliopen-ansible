@@ -2,10 +2,24 @@ index_server:
     url: http://{{ index_server_url }}
 
 cassandra:
+    keyspace: cqlengine
     hosts:
 {% for host in groups['backends'] %}
         - {{ hostvars[host]['private_ip_address'] }}:9160
 {% endfor %}
+
+broker:
+    url: 'amqp://{{ hostvars[groups['backends'][0]]['rabbitmq_user']  }}:{{ hostvars[groups['backends'][0]]['rabbitmq_password']  }}@{{ hostvars[groups['backends'][0]]['private_ip_address'] }}:5672/{{ hostvars[groups['backends'][0]]['rabbitmq_vhost']  }}'
+    exchange:
+        name: 'messages'
+        durable: True
+    queue:
+        name: 'messages'
+        routing_key: 'delivery'
+        durable: True
+        arguments:
+            x-ha-policy: 'all'
+
 site:
     item_per_page: 40
 

@@ -12,10 +12,18 @@ pyramid.debug_notfound = false
 pyramid.debug_routematch = false
 pyramid.default_locale_name = en
 pyramid.includes =
+    pyramid_kvs
+    cornice
     {{ project_basedir }}
     {{ project_basedir }}.core.config
     {{ project_basedir }}.views.app
     {{ project_basedir }}.views.api
+
+kvs.session = {"kvs": "redis",
+               "key_name": "session_id",
+               "session_type": "cookie",
+                "ttl": 300,
+                "key_prefix": "session::"}
 
 ###
 # Angular app settings.

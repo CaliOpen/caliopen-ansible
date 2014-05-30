@@ -1,0 +1,6 @@
+- hosts: vpnservers
+  user: root
+  roles:
+      - common
+      - private_network
+      - vpn

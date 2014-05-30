@@ -1,0 +1,98 @@
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number: 1 (0x1)
+    Signature Algorithm: sha1WithRSAEncryption
+        Issuer: C=FR, ST=Ile de France, L=Paris, O=Caliopen, OU=Caliopen.org, CN=vpn.caliopen.org/name=caliopen/emailAddress=admin@caliopen.org
+        Validity
+            Not Before: May 30 14:28:37 2014 GMT
+            Not After : May 30 14:28:37 2015 GMT
+        Subject: C=FR, ST=Ile de France, L=Paris, O=Caliopen, OU=Caliopen.org, CN=vpn.caliopen.org/name=caliopen/emailAddress=admin@caliopen.org
+        Subject Public Key Info:
+            Public Key Algorithm: rsaEncryption
+                Public-Key: (2048 bit)
+                Modulus:
+                    00:cc:7c:51:9d:c0:da:a0:bb:ef:af:2d:04:95:6e:
+                    9d:a3:f4:63:67:0d:83:e4:ec:df:2d:6a:82:57:77:
+                    ee:59:9c:97:36:eb:05:2f:a7:8e:b4:e9:6c:19:43:
+                    04:c5:b4:93:ef:be:30:e4:dc:be:d7:81:1e:67:03:
+                    72:ca:92:8c:47:81:99:3b:b1:85:b0:12:4d:37:d5:
+                    1b:62:41:af:84:8f:df:cb:80:2b:e2:0d:60:23:e9:
+                    46:ca:4c:b7:2f:8f:58:1a:05:54:91:23:91:b5:b5:
+                    0c:56:df:a7:01:39:ff:b9:73:fd:6c:90:68:1b:e2:
+                    f5:de:38:40:13:19:71:06:ad:6e:44:91:14:f5:e6:
+                    f2:2c:83:c6:2d:60:73:91:dc:87:52:da:0e:64:d3:
+                    ce:c7:e2:50:d5:a0:44:33:f9:d9:cb:57:bf:50:02:
+                    9f:bb:a0:54:6a:18:2b:60:cb:84:48:6c:f5:45:05:
+                    4d:23:bc:10:1a:d3:35:a6:8a:9f:25:ff:da:13:8c:
+                    b7:22:7a:3c:1b:f0:30:a4:c1:d5:5f:04:af:e4:38:
+                    bb:4c:04:8a:e8:60:a2:c6:64:29:af:b0:e8:1a:c4:
+                    3d:9c:5b:69:73:4f:6d:ba:cf:4b:c0:fc:80:40:28:
+                    bd:62:24:cd:76:9c:d1:e1:f9:30:f5:56:d4:68:45:
+                    13:85
+                Exponent: 65537 (0x10001)
+        X509v3 extensions:
+            X509v3 Basic Constraints: 
+                CA:FALSE
+            Netscape Cert Type: 
+                SSL Server
+            Netscape Comment: 
+                Easy-RSA Generated Server Certificate
+            X509v3 Subject Key Identifier: 
+                F6:CA:2A:69:3B:33:F6:F8:91:A6:26:0F:68:1A:02:48:20:87:0F:4A
+            X509v3 Authority Key Identifier: 
+                keyid:18:D4:4D:30:A5:9D:6E:4F:0F:EA:18:1F:2E:06:44:7E:74:56:6A:29
+                DirName:/C=FR/ST=Ile de France/L=Paris/O=Caliopen/OU=Caliopen.org/CN=vpn.caliopen.org/name=caliopen/emailAddress=admin@caliopen.org
+                serial:A3:64:08:B4:14:7D:02:C6
+
+            X509v3 Extended Key Usage: 
+                TLS Web Server Authentication
+            X509v3 Key Usage: 
+                Digital Signature, Key Encipherment
+    Signature Algorithm: sha1WithRSAEncryption
+         a5:4a:24:36:12:ab:44:7a:ca:05:d6:f4:40:aa:2a:28:6a:de:
+         75:af:a7:2c:d4:47:00:89:46:8e:57:d3:6c:96:5d:8b:b5:a1:
+         aa:f6:03:41:4d:f6:74:66:98:d5:8d:d1:1e:17:5e:8d:8a:3d:
+         1c:55:84:ec:e6:73:21:9a:4d:16:7e:69:f5:ed:0f:3a:7a:24:
+         64:41:ce:f1:b6:92:ae:8b:77:6f:f9:13:7e:2e:e3:84:dc:0c:
+         bd:a1:eb:a6:de:c7:80:49:61:25:bb:3e:78:8c:1c:61:7b:73:
+         3f:ad:61:cf:a4:21:04:58:62:ce:bb:7b:93:ca:62:73:35:f4:
+         9d:e3:18:93:32:cf:75:b8:5e:12:50:5e:1e:b1:3e:eb:12:bc:
+         61:84:c4:7b:55:7f:a4:ac:38:44:34:5c:9f:42:a6:d9:d0:fb:
+         46:86:42:1b:6d:92:12:96:bf:0e:9f:db:2d:7f:0d:29:7e:24:
+         dd:19:a2:c8:c7:e9:01:b6:21:b7:16:91:7a:e5:16:54:df:c9:
+         95:62:15:bf:25:ef:52:09:eb:f4:0d:5d:4a:89:45:3b:7c:2a:
+         e6:de:74:50:72:a3:e0:f2:a5:e2:55:2f:5a:4e:04:f2:fe:3c:
+         4a:bf:13:68:35:a4:31:1d:7f:67:12:eb:31:02:13:3a:8b:52:
+         c6:23:a4:52
+-----BEGIN CERTIFICATE-----
+MIIFYDCCBEigAwIBAgIBATANBgkqhkiG9w0BAQUFADCBsDELMAkGA1UEBhMCRlIx
+FjAUBgNVBAgTDUlsZSBkZSBGcmFuY2UxDjAMBgNVBAcTBVBhcmlzMREwDwYDVQQK
+EwhDYWxpb3BlbjEVMBMGA1UECxMMQ2FsaW9wZW4ub3JnMRkwFwYDVQQDExB2cG4u
+Y2FsaW9wZW4ub3JnMREwDwYDVQQpEwhjYWxpb3BlbjEhMB8GCSqGSIb3DQEJARYS
+YWRtaW5AY2FsaW9wZW4ub3JnMB4XDTE0MDUzMDE0MjgzN1oXDTE1MDUzMDE0Mjgz
+N1owgbAxCzAJBgNVBAYTAkZSMRYwFAYDVQQIEw1JbGUgZGUgRnJhbmNlMQ4wDAYD
+VQQHEwVQYXJpczERMA8GA1UEChMIQ2FsaW9wZW4xFTATBgNVBAsTDENhbGlvcGVu
+Lm9yZzEZMBcGA1UEAxMQdnBuLmNhbGlvcGVuLm9yZzERMA8GA1UEKRMIY2FsaW9w
+ZW4xITAfBgkqhkiG9w0BCQEWEmFkbWluQGNhbGlvcGVuLm9yZzCCASIwDQYJKoZI
+hvcNAQEBBQADggEPADCCAQoCggEBAMx8UZ3A2qC7768tBJVunaP0Y2cNg+Ts3y1q
+gld37lmclzbrBS+njrTpbBlDBMW0k+++MOTcvteBHmcDcsqSjEeBmTuxhbASTTfV
+G2JBr4SP38uAK+INYCPpRspMty+PWBoFVJEjkbW1DFbfpwE5/7lz/WyQaBvi9d44
+QBMZcQatbkSRFPXm8iyDxi1gc5Hch1LaDmTTzsfiUNWgRDP52ctXv1ACn7ugVGoY
+K2DLhEhs9UUFTSO8EBrTNaaKnyX/2hOMtyJ6PBvwMKTB1V8Er+Q4u0wEiuhgosZk
+Ka+w6BrEPZxbaXNPbbrPS8D8gEAovWIkzXac0eH5MPVW1GhFE4UCAwEAAaOCAYEw
+ggF9MAkGA1UdEwQCMAAwEQYJYIZIAYb4QgEBBAQDAgZAMDQGCWCGSAGG+EIBDQQn
+FiVFYXN5LVJTQSBHZW5lcmF0ZWQgU2VydmVyIENlcnRpZmljYXRlMB0GA1UdDgQW
+BBT2yippOzP2+JGmJg9oGgJIIIcPSjCB5QYDVR0jBIHdMIHagBQY1E0wpZ1uTw/q
+GB8uBkR+dFZqKaGBtqSBszCBsDELMAkGA1UEBhMCRlIxFjAUBgNVBAgTDUlsZSBk
+ZSBGcmFuY2UxDjAMBgNVBAcTBVBhcmlzMREwDwYDVQQKEwhDYWxpb3BlbjEVMBMG
+A1UECxMMQ2FsaW9wZW4ub3JnMRkwFwYDVQQDExB2cG4uY2FsaW9wZW4ub3JnMREw
+DwYDVQQpEwhjYWxpb3BlbjEhMB8GCSqGSIb3DQEJARYSYWRtaW5AY2FsaW9wZW4u
+b3JnggkAo2QItBR9AsYwEwYDVR0lBAwwCgYIKwYBBQUHAwEwCwYDVR0PBAQDAgWg
+MA0GCSqGSIb3DQEBBQUAA4IBAQClSiQ2EqtEesoF1vRAqiooat51r6cs1EcAiUaO
+V9Nsll2LtaGq9gNBTfZ0ZpjVjdEeF16Nij0cVYTs5nMhmk0Wfmn17Q86eiRkQc7x
+tpKui3dv+RN+LuOE3Ay9oeum3seASWEluz54jBxhe3M/rWHPpCEEWGLOu3uTymJz
+NfSd4xiTMs91uF4SUF4esT7rErxhhMR7VX+krDhENFyfQqbZ0PtGhkIbbZISlr8O
+n9stfw0pfiTdGaLIx+kBtiG3FpF65RZU38mVYhW/Je9SCev0DV1KiUU7fCrm3nRQ
+cqPg8qXiVS9aTgTy/jxKvxNoNaQxHX9nEusxAhM6i1LGI6RS
+-----END CERTIFICATE-----

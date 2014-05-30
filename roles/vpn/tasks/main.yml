@@ -1,0 +1,31 @@
+- name: install bridge-utils
+  apt: pkg=bridge-utils state=installed
+  tags: vpn
+
+- name: install openvpn
+  apt: pkg=openvpn state=installed
+  tags: vpn
+
+- name: ensure certs directory exist
+  action: file path=/etc/openvpn/certs state=directory
+  tags: vpn
+
+- name: install CA certificate
+  copy: src=certs/ca.crt dest=/etc/openvpn/certs/ca.crt
+  tags: vpn
+
+- name: install Server certificate
+  copy: src=certs/server.crt dest=/etc/openvpn/certs/server.crt
+  tags: vpn
+
+- name: install Server Key
+  copy: src=certs/server.key dest=/etc/openvpn/certs/server.key mode=0600
+  tags: vpn
+
+- name: install Diffie hellman
+  copy: src=certs/dh2048.pem dest=/etc/openvpn/certs/dh2048.pem
+  tags: vpn
+
+- name: install openvpn server configuration
+  template: src=openvpn.conf.j2 dest=/etc/openvpn/openvpn.conf
+  tags: vpn

@@ -5,18 +5,18 @@
 local {{ facter_ipaddress_eth0 }}
 port 1194
 proto tcp
-dev tun
+dev tap
 
 ca /etc/openvpn/certs/ca.crt
 cert /etc/openvpn/certs/server.crt
 key /etc/openvpn/certs/server.key  # This file should be kept secret
 dh /etc/openvpn/certs/dh2048.pem
 
-server 10.42.42.0 255.255.255.0
+server-bridge 10.42.42.2 255.255.255.0 10.42.42.128 10.42.42.254
 
 ifconfig-pool-persist ipp.txt
 
-push "route {{ facter_network_eth1 }} {{ facter_netmask_eth1 }}"
+push "route {{ private_ip_address }} {{ private_network_mask }}"
 
 ;push "redirect-gateway"
 

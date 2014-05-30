@@ -15,11 +15,11 @@ tap="tap0"
 # Define physical ethernet interface to be bridged
 # with TAP interface(s) above.
 eth="eth1"
-eth_ip="{{ facter_network_eth1 }}"
-eth_netmask="{{ facter_netmask_eth1 }}"
+eth_ip="{{ private_ip_address }}"
+eth_netmask="{{ private_network_mask }}"
 
 # XXX how to get this value ?
-eth_broadcast="10.0.0.255"
+eth_broadcast="10.42.42.255"
 
 for t in $tap; do
     openvpn --mktun --dev $t

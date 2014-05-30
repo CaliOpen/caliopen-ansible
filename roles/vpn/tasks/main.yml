@@ -29,3 +29,11 @@
 - name: install openvpn server configuration
   template: src=openvpn.conf.j2 dest=/etc/openvpn/openvpn.conf
   tags: vpn
+
+- name: install openvpn bridge start script
+  template: src=bridge-start.sh.j2 dest=/etc/openvpn/bridge-start.sh mode=700
+  tags: vpn
+
+- name: install openvpn bridge stop script
+  template: src=bridge-stop.sh.j2 dest=/etc/openvpn/bridge-stop.sh mode=700
+  tags: vpn

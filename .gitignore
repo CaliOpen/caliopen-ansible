@@ -1,0 +1,6 @@
+# exclude ansible files that are not templates
+hosts
+host_vars/*
+!host_vars/*.tmpl
+group_vars/*
+!group_vars/*.tmpl

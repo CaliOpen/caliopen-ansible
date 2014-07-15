@@ -1,0 +1,11 @@
+- hosts:
+    - backends
+    - webservers
+  user: root
+  roles:
+    - common
+    - cassandra
+    - elasticsearch
+    - rabbitmq
+    - redis
+    - web

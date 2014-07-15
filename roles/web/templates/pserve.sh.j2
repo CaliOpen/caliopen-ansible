@@ -4,6 +4,6 @@ BASEDIR="{{ project_root }}"
 
 source $BASEDIR/env/bin/activate
 
-cd $BASEDIR/code/caliop
+cd $BASEDIR/code/caliopen.web
 
-pserve --daemon --log-file {{ project_basedir }}/pserve.log production.ini &
+pserve --daemon --log-file pserve.log production.ini &

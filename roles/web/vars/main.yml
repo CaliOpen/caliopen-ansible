@@ -1,8 +1,16 @@
 project_name: caliopen
 project_root: /var/projects/caliopen
-project_basedir: caliop
-project_repo: https://github.com/CaliOpen/CaliOpen.git
-git_branch: core_store
+project_basedir: caliopen.web
+project_base_repo: https://github.com/CaliOpen
+project_repositories:
+  - caliopen.config
+  - caliopen.core
+  - caliopen.messaging
+  - caliopen.smtp
+  - caliopen.storage
+  - caliopen.api
+  - caliopen.ng
+  - caliopen.web
 system_packages:
   - sudo
   - build-essential

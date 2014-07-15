@@ -4,7 +4,7 @@
 ###
 
 [app:main]
-use = egg:{{ project_basedir }}
+use = egg:{{ project_name }}.web
 
 pyramid.reload_templates = false
 pyramid.debug_authorization = false
@@ -12,12 +12,13 @@ pyramid.debug_notfound = false
 pyramid.debug_routematch = false
 pyramid.default_locale_name = en
 pyramid.includes =
+    pyramid_jinja2
     pyramid_kvs
     cornice
-    {{ project_basedir }}
-    {{ project_basedir }}.core.config
-    {{ project_basedir }}.views.app
-    {{ project_basedir }}.views.api
+    {{ project_name }}.core.config
+    {{ project_name }}.api
+    {{ project_name} }.web
+    {{ project_name }}.web.views.app
 
 kvs.session = {"kvs": "redis",
                "key_name": "session_id",
@@ -30,9 +31,11 @@ kvs.session = {"kvs": "redis",
 # Angular app settings.
 ###
 
-{{ project_basedir }}.ng.path = ../../{{ project_basedir }}.ng/bin
-{{ project_basedir }}.config =
-    global:%(here)s/{{ project_basedir }}.yaml
+{{ project_name }}.ng.path = ../../../{{ project_name }}.ng/bin
+{{ project_name }}.config =
+    global:%(here)s/{{ project_name }}.yaml
+
+caliopen.ng.path = ../../../{{ project_name }}.ng/bin
 ###
 # wsgi server configuration
 ###
@@ -48,7 +51,7 @@ port = 6543
 ###
 
 [loggers]
-keys = root, {{ project_basedir }}
+keys = root, {{ project_name }}
 
 [handlers]
 keys = console
@@ -60,10 +63,10 @@ keys = generic
 level = WARN
 handlers = console
 
-[logger_{{ project_basedir }}]
+[logger_{{ project_name }}]
 level = WARN
 handlers =
-qualname = {{ project_basedir }}
+qualname = {{ project_name }}
 
 [handler_console]
 class = StreamHandler

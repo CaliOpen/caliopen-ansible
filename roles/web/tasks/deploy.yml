@@ -1,40 +1,49 @@
 ---
 
 - name: Pull sources from the repository.
-  git: repo={{project_repo}} dest={{ project_root }}/code/ version={{ git_branch }}
+  git: repo={{project_base_repo}}/{{ item}}.git dest={{ project_root }}/code/{{ item }}
   sudo: true
   sudo_user: "{{ project_name }}"
+  with_items: "{{ project_repositories }}"
   #notify:
   #  - restart web frontend
 
-- name: Upgrade the virtualenv.
-  pip: name={{ project_root }}/code/caliop virtualenv={{ project_root }}/env/
-  sudo: true
-  sudo_user: "{{ project_name }}"
+#- name: Upgrade the virtualenv.
+#  pip: name={{ project_root }}/code/caliopen.web virtualenv={{ project_root }}/env/
+#  sudo: true
+#  sudo_user: "{{ project_name }}"
 
 # XXX : temporary until python packaging is OK
 - name: remove previous caliop package
-  pip: name={{ project_name }} state=absent virtualenv={{ project_root }}/env/
+  pip: name={{ item }} state=absent virtualenv={{ project_root }}/env/
   sudo: true
   sudo_user: "{{ project_name }}"
+  with_items: "{{ project_repositories }}"
 
-- name: python setup.py develop caliop
-  raw: cd {{ project_root }} && source env/bin/activate && cd code/{{ project_basedir }} && python setup.py develop
+- name: python setup.py develop caliopen
+  raw: cd {{ project_root }} && source env/bin/activate && cd code/{{ item }} && if [[ -f "setup.py" ]]; then python setup.py develop; fi
   sudo: true
   sudo_user: "{{ project_name }}"
+  with_items: "{{ project_repositories }}"
+
+- name: pip install requirements
+  raw: cd {{ project_root }} && source env/bin/activate && cd code/{{ item }} && if [[ -f "requirements.txt" ]]; then pip install -r requirements.txt; fi
+  sudo: true
+  sudo_user: "{{ project_name }}"
+  with_items: "{{ project_repositories }}"
 
 - name: configure caliop
-  template: src={{ project_basedir }}.yaml.j2 dest={{ project_root }}/code/{{ project_basedir}}/{{ project_basedir}}.yaml
+  template: src=caliopen.yaml.j2 dest={{ project_root }}/code/{{ project_name }}.web/{{ project_basedir}}.yaml
   sudo: true
   sudo_user: "{{ project_name }}"
 
 - name: npm install for angularjs app
-  command: npm install chdir={{ project_root }}/code/caliop.ng
+  command: npm install chdir={{ project_root }}/code/caliopen.ng
   sudo: true
   sudo_user: "{{ project_name }}"
 
 - name: bower install for angularjs app
-  command: bower install chdir={{ project_root }}/code/caliop.ng
+  command: bower install chdir={{ project_root }}/code/caliopen.ng
   sudo: true
   sudo_user: "{{ project_name }}"
 
@@ -44,12 +53,12 @@
 #  sudo_user: "{{ project_name }}"
 
 - name: grunt compile for angularjs app
-  command: grunt compile chdir={{ project_root }}/code/{{ project_basedir }}.ng
+  command: grunt compile chdir={{ project_root }}/code/{{ project_name }}.ng
   sudo: true
   sudo_user: "{{ project_name }}"
 
 - name: deploy pserve configuration script
-  template: src=production.ini.j2 dest={{ project_root }}/code/{{ project_basedir }}/production.ini
+  template: src=production.ini.j2 dest={{ project_root }}/code/{{ project_name }}.web/production.ini
   sudo: true
   sudo_user: "{{ project_name }}"
 

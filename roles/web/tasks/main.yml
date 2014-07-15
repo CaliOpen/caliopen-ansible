@@ -27,7 +27,7 @@
   apt: pkg="{{item}}" state=installed update-cache=yes
   with_items: "{{nodejs_packages}}"
 
-# DO NOT WORK, maybe a stdin/out problem on curl
+#  DO NOT WORK, maybe a stdin/out problem on curl
 #- name: install npm
 #  command: curl https://www.npmjs.org/install.sh | sh
 

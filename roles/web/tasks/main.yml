@@ -28,8 +28,15 @@
   with_items: "{{nodejs_packages}}"
 
 #  DO NOT WORK, maybe a stdin/out problem on curl
-#- name: install npm
-#  command: curl https://www.npmjs.org/install.sh | sh
+- name: download npm install
+  command: curl "https://www.npmjs.org/install.sh" -o /tmp/install.sh
+  tags:
+    - npm
+
+- name: install npm
+  command: sh /tmp/install.sh
+  tags:
+    - npm
 
 - name: install nodejs modules with npm
   npm: name={{item}} state=present global=yes

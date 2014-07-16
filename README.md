@@ -9,7 +9,7 @@ Deployment is done using [ansible](www.ansible.com) playbooks.
 
 
 
-# Installation:
+# Installation
 
 if ansible is not installed on your system:
 - make a virtualenv, activate it
@@ -30,10 +30,10 @@ openssl req -new -newkey rsa:2048 \
     -out roles/web/files/certs/caliopen.csr
 
 # generate the certificate using [CaCert](www.cacert.org) for example
-and set this certificate as roles/web/file/certs/caliopen.crt file
+# and set this certificate as roles/web/file/certs/caliopen.crt file
 ```
 
-## Ansible configuration:
+## Ansible configuration
 - Edit a hosts file with a webservers and backends groups and
   reachable address of related machines
 
@@ -74,5 +74,6 @@ on the webservers machines. You have to activate the python virtualenv
 for that.
 
 ```
+su - caliopen
 source /var/projects/caliopen/env/bin/activate
 ```

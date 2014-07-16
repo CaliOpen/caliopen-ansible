@@ -1,41 +1,78 @@
 This is an ansible repository for deployment of Caliopen infrastructure.
 
-2 groups of machine are managed at this time:
+Deployment is done using [ansible](www.ansible.com) playbooks.
 
-- webservers, using nginx to serve the wsgi application
-- backends, using cassandra, elasticsearch, redis and rabbitmq as services.
+2 types of deployments are possibles:
 
-a private network on eth1 is setup for all machines, and all backend services
-bind only on the private ip address of this interface.
-
-Deployment is mostly done on Gandi vm with a private vlan, so playbooks
-are structured this way.
+- single machine deployment
+- 2 distincts machines set, one for web application another for backend services
 
 
-Installation:
+
+# Installation:
 
 if ansible is not installed on your system:
 - make a virtualenv, activate it
 - pip -r requirements.txt
 
+# Configuration
 
-- edit a hosts file with a webservers and backends groups and
+## x509 configuration
+
+- Edit certificates information using your own (rsa key are
+crypted inside this repository they will not work for you)
+
+```
+rm roles/web/files/certs/*
+# generate a new key and csr
+openssl req -new -newkey rsa:2048 \
+    -keyout roles/web/files/certs/caliopen.key \
+    -out roles/web/files/certs/caliopen.csr
+
+# generate the certificate using [CaCert](www.cacert.org) for example
+and set this certificate as roles/web/file/certs/caliopen.crt file
+```
+
+## Ansible configuration:
+- Edit a hosts file with a webservers and backends groups and
   reachable address of related machines
-- ansible-playbook -i hosts backends.yml, to deploy on backend machines
-- ansible-playbook -i hosts webservers.yml, to deploy on web machines
 
+- Edit a group_vars/backends file using backend.tmpl template
+- Edit a group_var/webservers file using webservers.tmpl template
+- Edit a host_vars/<machine_name> for all of your machines using relatedtemplate
+  switch machine role
 
-Remarks:
-- a x509 certificate and its private key are deployed on nginx.
-  the private key in this repository is crypted of course. Replace
-  the certificate and the key by your own (can be self signed)
-  see roles/web/files/certs/ directory
+NOTE:
 
-- npm installation doesn't work very well, install manually if it's
-  not working.
+For deployment on a single machine, make the machine appear in
+both webservers and backends groups
 
-- web service startup is not correctly integrated in system. you'll
-  find a pserve.sh file to startup the wsgi application.
+Set the private_ip_address in host_vars/<machine_name> to 127.0.0.1
 
-- many things are in an early development step, so don't expect too
-  much from these playbooks.
+For deployment on 2 distincts groups of machines, make sure you can have
+a private network usable on eth1 interface for your machines. This kind of
+
+# Deployment
+
+## single machine deployment
+
+```
+ansible-playbook -i hosts single.yaml
+```
+
+## 2 groups of machines
+
+```
+ansible-playbook -i hosts backends.yaml
+ansible-playbook -i hosts webservers.yaml
+```
+
+# Usage
+
+Hence deployment is done, you can play with the caliopen cli command
+on the webservers machines. You have to activate the python virtualenv
+for that.
+
+```
+source /var/projects/caliopen/env/bin/activate
+```

@@ -47,10 +47,10 @@
   sudo: true
   sudo_user: "{{ project_name }}"
 
-#- name: grunt build for angularjs app
-#  command: grunt build chdir={{ project_root }}/code/caliop.ng
-#  sudo: true
-#  sudo_user: "{{ project_name }}"
+- name: grunt build for angularjs app
+  command: grunt light_build chdir={{ project_root }}/code/{{ project_name }}.ng
+  sudo: true
+  sudo_user: "{{ project_name }}"
 
 - name: grunt compile for angularjs app
   command: grunt compile chdir={{ project_root }}/code/{{ project_name }}.ng

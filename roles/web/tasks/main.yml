@@ -63,6 +63,6 @@
 
 - name: Install nginx configuration file.
   template: src=nginx.conf.j2 dest=/etc/nginx/sites-enabled/{{project_name}}
-  # notify: restart nginx
+  notify: restart nginx
 
 - include: deploy.yml

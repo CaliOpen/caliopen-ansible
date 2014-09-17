@@ -7,10 +7,10 @@
   user: home="{{project_root}}/home/" name="{{project_name}}" state=present shell=/bin/bash
 
 - name: Update the project directory.
-  file: group="{{project_name}}" owner="{{project_name}}" mode=755 state=directory path="{{project_root}}"
+  file: group="{{project_name}}" owner="{{project_user}}" mode=755 state=directory path="{{project_root}}"
 
 - name: Create the code directory.
-  file: group="{{project_name}}" owner="{{project_name}}" mode=755 state=directory path="{{project_root}}/code/"
+  file: group="{{project_name}}" owner="{{project_user}}" mode=755 state=directory path="{{project_root}}/code/"
 
 - name: Install required system packages.
   apt: pkg="{{item}}" state=installed update-cache=yes

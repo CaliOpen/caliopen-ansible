@@ -27,7 +27,7 @@ rm roles/web/files/certs/*
 # generate a new key and csr
 openssl req -new -newkey rsa:2048 \
     -keyout roles/web/files/certs/caliopen.key \
-    -out roles/web/files/certs/caliopen.csr
+    -out roles/web/files/certs/caliopen.crt
 
 # generate the certificate using [CaCert](www.cacert.org) for example
 # and set this certificate as roles/web/file/certs/caliopen.crt file
@@ -65,6 +65,16 @@ ansible-playbook -i hosts single.yaml
 ```
 ansible-playbook -i hosts backends.yaml
 ansible-playbook -i hosts webservers.yaml
+```
+
+## Development environment
+
+There's some special tasks for development (actually there is one taht will generate a signed-cert for you) and you can activate it with
+following configuration:
+
+```
+#file: group_vars/webservers
+is_dev_env: true
 ```
 
 # Usage

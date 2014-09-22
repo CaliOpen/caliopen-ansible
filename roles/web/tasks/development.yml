@@ -1,0 +1,14 @@
+---
+
+# http://serialized.net/2013/04/simply-generating-self-signed-ssl-certs-with-ansible/
+- name: overwrite cert by selfsigned
+  command: openssl req -new -nodes -x509 \
+        -subj "/C=US/ST=Oregon/L=Portland/O=IT/CN=${ansible_fqdn}" \
+        -days 3650 \
+        -keyout /etc/nginx/certs/{{ project_name }}.key \
+        -out /etc/nginx/certs/{{ project_name }}.crt \
+        -extensions v3_ca creates=/etc/nginx/certs/{{ project_name }}.crt
+  notify: restart nginx
+  when: is_dev_env
+  tags:
+      - cert

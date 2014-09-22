@@ -1,5 +1,6 @@
 server {
     listen              [::]:443 ssl;
+    listen              443 ssl;
     server_name         _;
 
     ssl_certificate     /etc/nginx/certs/{{ project_name }}.crt;
@@ -13,8 +14,6 @@ server {
         }
     }
     location / {
-        auth_basic            "Restricted";
-        auth_basic_user_file  {{ project_root}}/home/htpasswd;
         proxy_pass_header Server;
         proxy_set_header Host $http_host;
         proxy_redirect off;

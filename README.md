@@ -69,8 +69,8 @@ ansible-playbook -i hosts webservers.yaml
 
 ## Development environment
 
-There's some special tasks for development (actually there is one taht will generate a signed-cert for you) and you can activate it with
-following configuration:
+There's some special tasks for development (actually there is one that will generate a self-signed cert for you).  
+You can activate it with following configuration:
 
 ```
 #file: group_vars/webservers

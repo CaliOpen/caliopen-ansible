@@ -7,6 +7,9 @@
   template: src=elasticsearch.yml.j2 dest=/etc/elasticsearch/elasticsearch.yml
   notify:
     - restart elasticsearch
+
+- name: make elasticsearch start at boot time
+  command: update-rc.d elasticsearch defaults 95 10
 # Install Paramedic dashboard
 # - include: paramedic.yml tags=elasticsearch
 #  when: ansible_distribution in [ 'Debian', 'Ubuntu' ]

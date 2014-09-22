@@ -1,7 +1,6 @@
 - hosts:
     - backends
     - webservers
-  user: root
   roles:
     - common
     - cassandra

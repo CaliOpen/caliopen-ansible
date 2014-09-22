@@ -1,4 +1,5 @@
 project_name: caliopen
+project_user: caliopen
 project_root: /var/projects/caliopen
 project_basedir: caliopen.web
 project_base_repo: https://github.com/CaliOpen

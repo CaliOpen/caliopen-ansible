@@ -66,3 +66,4 @@
   notify: restart nginx
 
 - include: deploy.yml
+- include: development.yml

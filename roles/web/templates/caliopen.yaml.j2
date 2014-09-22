@@ -2,7 +2,7 @@ index_server:
     url: http://{{ index_server_url }}
 
 cassandra:
-    keyspace: cqlengine
+    keyspace: {{ project_name }}
     hosts:
 {% for host in groups['backends'] %}
         - {{ hostvars[host]['private_ip_address'] }}:9160

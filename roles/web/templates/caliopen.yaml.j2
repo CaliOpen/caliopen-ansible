@@ -2,7 +2,7 @@ index_server:
     url: http://{{ index_server_url }}
 
 cassandra:
-    keyspace: cqlengine
+    keyspace: {{ project_name }}
     hosts:
 {% for host in groups['backends'] %}
         - {{ hostvars[host]['private_ip_address'] }}:9160
@@ -30,6 +30,13 @@ interfaces:
             IRawMail: caliop.storage.data.cassandra.RawMail
             IUser: caliop.storage.data.cassandra.User
             IContact: caliop.storage.data.cassandra.Contact
+            IContactOrganization: caliopen.storage.data.cassandra.ContactOrganization
+            IContactPostalAddress: caliopen.storage.data.cassandra.ContactPostalAddress
+            IContactEmail: caliopen.storage.data.cassandra.ContactEmail
+            IContactPhone: caliopen.storage.data.cassandra.ContactPhone
+            IContactIm: caliopen.storage.data.cassandra.ContactIm
+            IContactSocialIdentity: caliopen.storage.data.cassandra.ContactSocialIdentity
+            IContactPublicKey: caliopen.storage.data.cassandra.ContactPublicKey
             IContactLookup: caliop.storage.data.cassandra.ContactLookup
             ICounter: caliop.storage.data.cassandra.Counter
             IMessage: caliop.storage.data.cassandra.Message

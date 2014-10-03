@@ -3,3 +3,42 @@ private_network_gateway: 192.168.10.1
 # TODO : this variable must be resolved in template
 index_server_url: 192.168.10.10:9200
 is_dev_env: false
+
+# Project configuration for web component
+project_name: caliopen
+project_user: vagrant
+project_root: /var/projects/caliopen
+project_basedir: caliopen.web
+project_base_repo: https://github.com/CaliOpen
+project_repositories:
+  - caliopen.config
+  - caliopen.core
+  - caliopen.messaging
+  - caliopen.smtp
+  - caliopen.storage
+  - caliopen.api
+  - caliopen.ng
+  - caliopen.web
+system_packages:
+  - sudo
+  - build-essential
+  - git
+  - nginx
+  - python-dev
+  - python-setuptools
+  - python-pycurl
+  - curl
+  - libffi-dev
+  - redis-server
+python_packages:
+  - pip
+  - virtualenv
+nodejs_packages:
+  - nodejs
+  - nodejs-legacy
+nodejs_modules:
+  - bower
+  - grunt
+  - grunt-cli
+initfiles:
+  - gunicorn

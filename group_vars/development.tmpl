@@ -1,0 +1,27 @@
+project_name: caliopen
+project_user: caliopen
+project_root: /var/projects/caliopen
+project_base_repo: https://github.com/CaliOpen
+system_packages:
+  - sudo
+  - build-essential
+  - git
+  - python-dev
+  - python-setuptools
+  - python-pycurl
+  - python-virtualenv
+  - curl
+  - libffi-dev
+  - docker.io
+python_packages:
+  - pip
+  - fig
+nodejs_packages:
+  - nodejs
+  - nodejs-legacy
+nodejs_modules:
+  - bower
+  - grunt
+  - grunt-cli
+initfiles:
+  - gunicorn

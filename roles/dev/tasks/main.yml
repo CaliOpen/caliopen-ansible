@@ -5,7 +5,7 @@
   file: state=directory path={{project_root}}
 
 - name: Create user.
-  user: home="{{project_root}}/home/" name="{{project_name}}" state=present shell=/bin/bash
+  user: home="{{project_root}}/home/" name="{{project_name}}" state=present shell=/bin/bash groups=docker
 
 - name: Update the project directory.
   file: group="{{project_name}}" owner="{{project_user}}" mode=755 state=directory path="{{project_root}}"
@@ -30,3 +30,17 @@
   command: "{{ project_root }}/bin/install"
   sudo: true
   sudo_user: "{{ project_user }}"
+
+- name: Start CaliOpen
+  command: "{{ project_root }}/bin/start"
+  sudo: true
+  sudo_user: "{{ project_user }}"
+
+- name: create nginx certificate directory
+  file: path=/etc/nginx/certs state=directory mode=0700
+
+- name: Install nginx configuration file.
+  template: src=nginx.conf.j2 dest=/etc/nginx/sites-enabled/{{project_name}}
+  notify: restart nginx
+
+- include: certificate.yml

@@ -1,0 +1,48 @@
+
+---
+
+- name: Install required system packages.
+  apt: pkg="{{item}}" state=installed update-cache=yes
+  with_items: "{{system_packages}}"
+
+- name: Install required Python packages.
+  easy_install: name="{{item}}"
+  with_items: "{{python_packages}}"
+
+- name: Create the project directory.
+  file: state=directory path={{project_root}}
+
+- name: Create user.
+  user: home="{{project_root}}/home/" name="{{project_name}}" state=present shell=/bin/bash groups=docker
+
+- name: Update the project directory.
+  file: group="{{project_name}}" owner="{{project_user}}" mode=755 state=directory path="{{project_root}}"
+
+- name: Create the code directory.
+  file: group="{{project_name}}" owner="{{project_user}}" mode=755 state=directory path="{{project_root}}/code/"
+
+- name: Pull sources from the repository.
+  git: repo={{ project_base_repo }}/caliopen-dev.git dest={{ project_root }}/bin
+  sudo: true
+  sudo_user: "{{ project_user }}"
+
+- name: Install CaliOpen
+  command: "{{ project_root }}/bin/install"
+  sudo: true
+  sudo_user: "{{ project_user }}"
+
+- name: Start CaliOpen
+  command: "{{ project_root }}/bin/start"
+  sudo: true
+  sudo_user: "{{ project_user }}"
+  async: 45
+  poll: 0
+
+- name: create nginx certificate directory
+  file: path=/etc/nginx/certs state=directory mode=0700
+
+- name: Install nginx configuration file.
+  template: src=nginx.conf.j2 dest=/etc/nginx/sites-enabled/{{project_name}}
+  notify: restart nginx
+
+- include: certificate.yml

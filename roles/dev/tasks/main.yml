@@ -35,6 +35,8 @@
   command: "{{ project_root }}/bin/start"
   sudo: true
   sudo_user: "{{ project_user }}"
+  async: 45
+  poll: 0
 
 - name: create nginx certificate directory
   file: path=/etc/nginx/certs state=directory mode=0700

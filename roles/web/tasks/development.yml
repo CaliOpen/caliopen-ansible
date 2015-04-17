@@ -1,5 +1,15 @@
 ---
 
+- name: remove cert
+  file: path="/etc/nginx/certs/{{ project_name }}.crt" state="absent"
+  when: is_dev_env
+  tags: cert
+
+- name: remove cert
+  file: path="/etc/nginx/certs/{{ project_name }}.key" state="absent"
+  when: is_dev_env
+  tags: cert
+
 # http://serialized.net/2013/04/simply-generating-self-signed-ssl-certs-with-ansible/
 - name: overwrite cert by selfsigned
   command: openssl req -new -nodes -x509 \

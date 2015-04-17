@@ -34,7 +34,7 @@
   with_items: "{{ project_repositories }}"
 
 - name: configure caliop
-  template: src=caliopen.yaml.j2 dest={{ project_root }}/code/{{ project_name }}.web/{{ project_basedir}}.yaml
+  template: src=caliopen.yaml.j2 dest={{ project_root }}/code/{{ project_name }}.web/{{ project_name}}.yaml
   sudo: true
   sudo_user: "{{ project_user }}"
 

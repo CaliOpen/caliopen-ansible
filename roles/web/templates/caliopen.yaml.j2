@@ -8,28 +8,30 @@ cassandra:
         - {{ hostvars[host]['private_ip_address'] }}:9160
 {% endfor %}
 
-broker:
-    url: 'amqp://{{ hostvars[groups['backends'][0]]['rabbitmq_user']  }}:{{ hostvars[groups['backends'][0]]['rabbitmq_password']  }}@{{ hostvars[groups['backends'][0]]['private_ip_address'] }}:5672/{{ hostvars[groups['backends'][0]]['rabbitmq_vhost']  }}'
-    exchange:
-        name: 'messages'
-        durable: True
-    queue:
-        name: 'messages'
-        routing_key: 'delivery'
-        durable: True
-        arguments:
-            x-ha-policy: 'all'
+delivery_agent:
+    direct: True
+    broker:
+        url: 'amqp://{{ hostvars[groups['backends'][0]]['rabbitmq_user']  }}:{{ hostvars[groups['backends'][0]]['rabbitmq_password']  }}@{{ hostvars[groups['backends'][0]]['private_ip_address'] }}:5672/{{ hostvars[groups['backends'][0]]['rabbitmq_vhost']  }}'
+        exchange:
+            name: 'messages'
+            durable: True
+        queue:
+            name: 'messages'
+            routing_key: 'delivery'
+            durable: True
+            arguments:
+                x-ha-policy: 'all'
 
 site:
-    item_per_page: 40
+    item_per_page: 10
 
 interfaces:
     storage:
         data:
-            IStorage: caliop.storage.data.cassandra.Storage
-            IRawMail: caliop.storage.data.cassandra.RawMail
-            IUser: caliop.storage.data.cassandra.User
-            IContact: caliop.storage.data.cassandra.Contact
+            IStorage: caliopen.storage.data.cassandra.Storage
+            IRawMail: caliopen.storage.data.cassandra.RawMail
+            IUser: caliopen.storage.data.cassandra.User
+            IContact: caliopen.storage.data.cassandra.Contact
             IContactOrganization: caliopen.storage.data.cassandra.ContactOrganization
             IContactPostalAddress: caliopen.storage.data.cassandra.ContactPostalAddress
             IContactEmail: caliopen.storage.data.cassandra.ContactEmail
@@ -37,18 +39,20 @@ interfaces:
             IContactIm: caliopen.storage.data.cassandra.ContactIm
             IContactSocialIdentity: caliopen.storage.data.cassandra.ContactSocialIdentity
             IContactPublicKey: caliopen.storage.data.cassandra.ContactPublicKey
-            IContactLookup: caliop.storage.data.cassandra.ContactLookup
-            ICounter: caliop.storage.data.cassandra.Counter
-            IMessage: caliop.storage.data.cassandra.Message
-            IMessageLookup: caliop.storage.data.cassandra.MessageLookup
-            ITag: caliop.storage.data.cassandra.Tag
-            IThread: caliop.storage.data.cassandra.Thread
+            IContactLookup: caliopen.storage.data.cassandra.ContactLookup
+            ICounter: caliopen.storage.data.cassandra.Counter
+            IMessage: caliopen.storage.data.cassandra.Message
+            IMessageLookup: caliopen.storage.data.cassandra.MessageLookup
+            ITag: caliopen.storage.data.cassandra.Tag
+            IFilterRule: caliopen.storage.data.cassandra.FilterRule
+            IThread: caliopen.storage.data.cassandra.Thread
         index:
-            IStorageIndex: caliop.storage.index.elasticsearch.StorageIndex
-            IUserIndex: caliop.storage.index.elasticsearch.UserIndex
-            IIndexedContact: caliop.storage.index.elasticsearch.IndexedContact
-            IIndexedMessage: caliop.storage.index.elasticsearch.IndexedMessage
-            IIndexedThread: caliop.storage.index.elasticsearch.IndexedThread
+            IStorageIndex: caliopen.storage.index.elasticsearch.StorageIndex
+            IUserIndex: caliopen.storage.index.elasticsearch.UserIndex
+            IIndexedContact: caliopen.storage.index.elasticsearch.IndexedContact
+            IIndexedMessage: caliopen.storage.index.elasticsearch.IndexedMessage
+            IIndexedThread: caliopen.storage.index.elasticsearch.IndexedThread
+
 
 system:
     default_tags:
